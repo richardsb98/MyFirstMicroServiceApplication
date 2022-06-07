@@ -24,8 +24,8 @@ public class Actor implements ActorRepository{
     int actor_id;
 
     //Attributes
-    private String first_name;
-    private String last_name;
+    public String first_name;
+    public String last_name;
 
     public Long getId() {
         return id;
@@ -70,6 +70,8 @@ public class Actor implements ActorRepository{
     public void setLast_name(String last_name){
         this.last_name = last_name;
     }
+
+
 
     @Override
     public <S extends Actor> S save(S entity) {
