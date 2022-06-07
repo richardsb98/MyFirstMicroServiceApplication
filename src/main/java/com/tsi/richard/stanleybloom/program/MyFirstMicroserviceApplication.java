@@ -27,7 +27,7 @@ public class MyFirstMicroserviceApplication {
 		this.actorRepository =actorRepository;
 	}
 
-	@GetMapping("All_Actors")
+	@GetMapping("/All_Actors")
 	public @ResponseBody
 	Iterable<Actor>getAllActors(){
 		return actorRepository.findAll();

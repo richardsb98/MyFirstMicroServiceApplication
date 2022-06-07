@@ -12,7 +12,7 @@ import java.util.Optional;
 @Entity
 @Qualifier("actor")
 @Repository
-@Table(name = "actors")
+@Table(name = "actor")
 
 public class Actor implements ActorRepository{
     @javax.persistence.Id
