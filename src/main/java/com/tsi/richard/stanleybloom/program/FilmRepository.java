@@ -4,8 +4,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import org.springframework.stereotype.Service;
 
+@Service
+public interface FilmRepository extends CrudRepository<Film,Integer>{
 
-public interface ActorRepository extends CrudRepository<Actor,Integer>{
 }
 
 
