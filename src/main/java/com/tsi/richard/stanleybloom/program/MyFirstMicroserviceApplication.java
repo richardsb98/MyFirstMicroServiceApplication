@@ -9,35 +9,45 @@ import org.springframework.web.bind.annotation.*;
 
 
 
+
 @SpringBootApplication
 @CrossOrigin (origins = "*")     //needed for receiving request via api
 @RestController                 // handles GET, POST, DELETE, PUT requests
 @RequestMapping("/home")        // base url
 public class MyFirstMicroserviceApplication {
 
+
+
 	public String addActor;
 	@Autowired
-	private ActorRepository actorRepository;
+	private @Qualifier("actor") ActorRepository actorRepository;
 
-//	@Autowired
-//	private @Qualifier("film") FilmRepository filmRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}
 
-	public MyFirstMicroserviceApplication (ActorRepository actorRepository){
+	public MyFirstMicroserviceApplication (@Qualifier("actor") ActorRepository actorRepository){
 		this.actorRepository =actorRepository;
 	}
-//	public MyFirstMicroserviceApplication (@Qualifier("film") FilmRepository filmRepository){
-//		this.filmRepository = filmRepository;
-//	}
+
+
 
 	@GetMapping("/All_Actors")
 	public @ResponseBody
 	Iterable<Actor>getAllActors(){
 		return actorRepository.findAll();
 	}
+
+
+
+	//	@Autowired
+//	private @Qualifier("film") FilmRepository filmRepository;
+
+
+	//	public MyFirstMicroserviceApplication (@Qualifier("film") FilmRepository filmRepository){
+//		this.filmRepository = filmRepository;
+//	}
 
 //	@PostMapping("/Add_Actors")
 //	public @ResponseBody String Add_Actor(@RequestParam String actor_name){
