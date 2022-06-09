@@ -39,16 +39,33 @@ public class MyFirstMicroserviceApplication {
 
 
 	@GetMapping("/All_Actors")
-	public @ResponseBody Iterable<Actor> getAllActors() {
+	@ResponseBody
+	public Iterable<Actor> getAllActors() {
 		return actorRepository.findAll();
 	}
 
-	@GetMapping("/actor{actor_id}")
-	public @ResponseBody Optional<Actor> getActorID (@PathVariable("actor_id") int actorID) {
+	@GetMapping("/actor/{actor_id}")
+	@ResponseBody
+	public Optional<Actor> getActorID (@PathVariable("actor_id") int actorID) {
 		return actorRepository.findById(actorID);
 	}
 
+//	public ActorsName(){
+//		return
+//	}
+//
+//	@GetMapping("/actor/{firstname}/{lastname}")
+//	@ResponseBody
+//	public Optional<Actor> getActorName (@PathVariable("first_name") String firstname, @PathVariable("last_name") String lastname) {
+//		actorRepository.ActorFirstName()
+//  }
 
+
+//
+//	@GetMapping("/actor")
+//	public Iterable<Actor> isActorAvailable(@RequestParam String first_name, @RequestParam String last_name) {
+//		return actorRepository.toString(first_name, last_name);
+//	}
 
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,7 +87,8 @@ public class MyFirstMicroserviceApplication {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	@PostMapping("/addActor")
-	public @ResponseBody String addActor(@RequestParam String first_name, @RequestParam String last_name) {
+	@ResponseBody
+	public String addActor(@RequestParam String first_name, @RequestParam String last_name) {
 		System.out.println(first_name + " " + last_name);
 		actorRepository.save(addActor);
 		String SuccessfulAddActor = "saved";
@@ -78,7 +96,8 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@PutMapping("/addNewActor")
-	public @ResponseBody String addNewActor(@RequestParam String first_name, @RequestParam String last_name) {
+	@ResponseBody
+	public String addNewActor(@RequestParam String first_name, @RequestParam String last_name) {
 		return "Added new Actor";
 	}
 
