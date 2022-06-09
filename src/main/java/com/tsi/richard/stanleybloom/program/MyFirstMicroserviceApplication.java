@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin (origins = "*")     //needed for receiving request via api
 @RestController                 // handles GET, POST, DELETE, PUT requests
 @RequestMapping("/home")        // base url
-public class MyFirstMicroserviceApplication {
 
+
+public class MyFirstMicroserviceApplication {
 
 
 	public String addActor;
@@ -27,16 +28,23 @@ public class MyFirstMicroserviceApplication {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}
 
-	public MyFirstMicroserviceApplication (@Qualifier("actor") ActorRepository actorRepository){
-		this.actorRepository =actorRepository;
+	public MyFirstMicroserviceApplication(@Qualifier("actor") ActorRepository actorRepository) {
+		this.actorRepository = actorRepository;
 	}
 
 
-
 	@GetMapping("/All_Actors")
-	public @ResponseBody
-	Iterable<Actor>getAllActors(){
+	public @ResponseBody Iterable<Actor> getAllActors() {
 		return actorRepository.findAll();
+	}
+
+	@PostMapping("/addActor")
+	public @ResponseBody String addNewActor(@RequestParam String first_name, @RequestParam String last_name) {
+		Actor addActor = new Actor(first_name, last_name);
+		System.out.println(first_name + " " + last_name);
+		actorRepository.save(addActor);
+		String SuccessfulAddActor = "saved";
+		return SuccessfulAddActor;
 	}
 
 

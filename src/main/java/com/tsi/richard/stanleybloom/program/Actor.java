@@ -43,10 +43,11 @@ public class Actor implements ActorRepository {
         this.last_name = last_name;
     }
 
-    public Actor() {
+    public Actor() {                                    // empty constructor
     }
 
-    //Methods
+    //////////////////////////////////////////////////// Methods //////////////////////////////////////////////////////////////////////////////
+
     //getters and setters
 
     public int getActor_id() {
