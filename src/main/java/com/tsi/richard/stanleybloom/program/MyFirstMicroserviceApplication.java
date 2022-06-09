@@ -1,12 +1,11 @@
 package com.tsi.richard.stanleybloom.program;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -54,33 +53,33 @@ public class MyFirstMicroserviceApplication {
 //		return
 //	}
 //
-//	@GetMapping("/actor/{firstname}/{lastname}")
-//	@ResponseBody
-//	public Optional<Actor> getActorName (@PathVariable("first_name") String firstname, @PathVariable("last_name") String lastname) {
-//		actorRepository.ActorFirstName()
-//  }
+	@GetMapping("/actor/{firstname}/{lastname}")
+	@ResponseBody
+	public List<Actor> getActorName (@PathVariable("first_name") String firstname, @PathVariable("last_name") String lastname) {
+		return NameRepository.findByLastName(firstname);
+  }
 
 
-//
+
 //	@GetMapping("/actor")
-//	public Iterable<Actor> isActorAvailable(@RequestParam String first_name, @RequestParam String last_name) {
-//		return actorRepository.toString(first_name, last_name);
+//	public Iterable<Actor> isActorAvailable(@RequestBody Actor actor) {
+//		return NameRepository.
+//
+//	}
+
+//	@GetMapping("/actor_firstname")
+//	public Iterable<Actor> getActorFirstName(@RequestParam String first_name) {
+//		return NameRepository.findByLastName(first_name);
+//
 //	}
 
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	@GetMapping("/{id}")
-//	public Actor actorID(@PathVariable int actor_id)  {
-//		return Actor.findByID(id);
+
+//	@GetMapping("/actor")
+//	public Actor isActorAvailable(@RequestBody Actor actor) {
+//		return actorRepository.findByFirstName(actor.first_name, actor.last_name)
 //	}
 //
-//
-//	@GetMapping("/actor/{actor_id}")
-//	public Optional<Actor> getactorID(@PathVariable("actor_id") {
-//		Iterable<Actor> Actor = actorRepository.findByPostalCode(actor_id);
-//		return Actor;
-//	}
-//}
 //
 
 
