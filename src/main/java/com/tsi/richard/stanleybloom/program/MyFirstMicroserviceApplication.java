@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.*;
 @SpringBootApplication
 @CrossOrigin (origins = "*")     //needed for receiving request via api
 @RestController                 // handles GET, POST, DELETE, PUT requests
-@RequestMapping("/home")        // base url
-
-
+@RequestMapping("/Home")        // base url
 public class MyFirstMicroserviceApplication {
 
+	public MyFirstMicroserviceApplication(){
+	}
 
 	@Autowired
-	private @Qualifier("actor") ActorRepository actorRepository;
+	private ActorRepository actorRepository;
 
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}
 
-	public MyFirstMicroserviceApplication(@Qualifier("actor") ActorRepository actorRepository) {
+	public MyFirstMicroserviceApplication(ActorRepository actorRepository) {
 		this.actorRepository = actorRepository;
 	}
 

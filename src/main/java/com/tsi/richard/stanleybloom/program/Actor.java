@@ -7,13 +7,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.*;
 import java.util.Optional;
 
-@EnableTransactionManagement
+//@EnableTransactionManagement
 @Entity
 //@Qualifier("actor")
-@Repository
-@Table(name = "actor")
-
-public class Actor implements ActorRepository {
+//@Repository
+//@Table(name = "actor")
+public class Actor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,62 +65,62 @@ public class Actor implements ActorRepository {
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public <S extends Actor> S save(S entity) {
-        return null;
-    }
-
-
-    public <S extends Actor> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
-    }
-
-
-    public Optional<Actor> findById(Integer integer) {
-        return Optional.empty();
-    }
-
-
-    public boolean existsById(Integer integer) {
-        return false;
-    }
-
-
-    public Iterable<Actor> findAll() {
-        return null;
-    }
-
-
-    public Iterable<Actor> findAllById(Iterable<Integer> integers) {
-        return null;
-    }
-
-
-    public long count() {
-        return 0;
-    }
-
-
-    public void deleteById(Integer integer) {
-
-    }
-
-
-    public void delete(Actor entity) {
-
-    }
-
-
-    public void deleteAllById(Iterable<? extends Integer> integers) {
-
-    }
-
-
-    public void deleteAll(Iterable<? extends Actor> entities) {
-
-    }
-
-
-    public void deleteAll() {
-
-    }
+//    public <S extends Actor> S save(S entity) {
+//        return null;
+//    }
+//
+//
+//    public <S extends Actor> Iterable<S> saveAll(Iterable<S> entities) {
+//        return null;
+//    }
+//
+//
+//    public Optional<Actor> findById(Integer integer) {
+//        return Optional.empty();
+//    }
+//
+//
+//    public boolean existsById(Integer integer) {
+//        return false;
+//    }
+//
+//
+//    public Iterable<Actor> findAll() {
+//        return null;
+//    }
+//
+//
+//    public Iterable<Actor> findAllById(Iterable<Integer> integers) {
+//        return null;
+//    }
+//
+//
+//    public long count() {
+//        return 0;
+//    }
+//
+//
+//    public void deleteById(Integer integer) {
+//
+//    }
+//
+//
+//    public void delete(Actor entity) {
+//
+//    }
+//
+//
+//    public void deleteAllById(Iterable<? extends Integer> integers) {
+//
+//    }
+//
+//
+//    public void deleteAll(Iterable<? extends Actor> entities) {
+//
+//    }
+//
+//
+//    public void deleteAll() {
+//
+//    }
 }
