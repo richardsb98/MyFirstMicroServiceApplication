@@ -30,7 +30,7 @@ public class addActorStepDefs extends MyFirstMicroserviceApplication {
     public void i_get_the_success_return_string() {
 
         // Only place to put Assertions
-        Assertions.assertEquals("saved", SuccessfullAddActor, "push was not successful");
+        Assertions.assertEquals("saved", testActor.getFirst_name(), "push was not successful");
         throw new io.cucumber.java.PendingException();
     }
 }

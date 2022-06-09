@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.util.Optional;
 
 
 @SpringBootApplication
@@ -16,7 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/Home")        // base url
 public class MyFirstMicroserviceApplication {
 
-	public MyFirstMicroserviceApplication(){
+	String first_name;
+	String last_name;
+	int actor_id;
+	Actor addActor = new Actor();
+
+
+	public MyFirstMicroserviceApplication() {
 	}
 
 	@Autowired
@@ -37,14 +43,47 @@ public class MyFirstMicroserviceApplication {
 		return actorRepository.findAll();
 	}
 
+	@GetMapping("/actor{actor_id}")
+	public @ResponseBody Optional<Actor> getActorID (@PathVariable("actor_id") int actorID) {
+		return actorRepository.findById(actorID);
+	}
+
+
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	@GetMapping("/{id}")
+//	public Actor actorID(@PathVariable int actor_id)  {
+//		return Actor.findByID(id);
+//	}
+//
+//
+//	@GetMapping("/actor/{actor_id}")
+//	public Optional<Actor> getactorID(@PathVariable("actor_id") {
+//		Iterable<Actor> Actor = actorRepository.findByPostalCode(actor_id);
+//		return Actor;
+//	}
+//}
+//
+
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	@PostMapping("/addActor")
-	public @ResponseBody String addNewActor(@RequestParam String first_name, @RequestParam String last_name) {
-		Actor addActor = new Actor(first_name, last_name);
+	public @ResponseBody String addActor(@RequestParam String first_name, @RequestParam String last_name) {
 		System.out.println(first_name + " " + last_name);
 		actorRepository.save(addActor);
 		String SuccessfulAddActor = "saved";
 		return SuccessfulAddActor;
 	}
+
+	@PutMapping("/addNewActor")
+	public @ResponseBody String addNewActor(@RequestParam String first_name, @RequestParam String last_name) {
+		return "Added new Actor";
+	}
+
+
+}
 
 
 
@@ -67,4 +106,4 @@ public class MyFirstMicroserviceApplication {
 //		return filmRepository.findAll();
 //	}
 //
-}
+

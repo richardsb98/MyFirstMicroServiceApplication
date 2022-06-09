@@ -16,12 +16,12 @@ public class Actor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     int actor_id;
 
     //Attributes
     String first_name;
     String last_name;
-
 
 
     //Constructor
