@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 public class MyFirstMicroserviceApplication {
 
 
-	public String addActor;
 	@Autowired
 	private @Qualifier("actor") ActorRepository actorRepository;
 

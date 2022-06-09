@@ -1,7 +1,6 @@
 package com.tsi.richard.stanleybloom.program;
 
 //import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -15,9 +14,6 @@ import java.util.Optional;
 @Table(name = "actor")
 
 public class Actor implements ActorRepository {
-    @javax.persistence.Id
-    @Column(name = "id", nullable = false)
-    private Long id;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +23,6 @@ public class Actor implements ActorRepository {
     String first_name;
     String last_name;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
 
     //Constructor
