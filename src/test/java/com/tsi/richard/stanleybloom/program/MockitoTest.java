@@ -12,19 +12,32 @@ public class MockitoTest {
 
     private MyFirstMicroserviceApplication myfirstmicroserviceapplication;
     @Mock
-    private ActorRepository actorrepository;
+    private ActorRepository actorRepository;
+
+    @Mock
+    private FilmRepository filmRepository;
+
+    @Mock
+    private LanguageRepository languageRepository;
+
+    @Mock
+    private CategoryRepository categoryRepository;
+
+    @Mock
+    private Film_CategoryRepository film_categoryRepository;
+
 
 
     @BeforeEach
     void setUp() {
-        myfirstmicroserviceapplication = new MyFirstMicroserviceApplication(actorrepository);
+        myfirstmicroserviceapplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, languageRepository, categoryRepository, film_categoryRepository);
     }
 
     @Test
     public void getAllActors() {
 
         myfirstmicroserviceapplication.getAllActors();
-        verify(actorrepository).findAll();
+        verify(actorRepository).findAll();
 
     }
 

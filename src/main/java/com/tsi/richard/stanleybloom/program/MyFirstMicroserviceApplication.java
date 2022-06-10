@@ -3,11 +3,13 @@ package com.tsi.richard.stanleybloom.program;
 import org.springframework.boot.SpringApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+//import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Year;
 import java.util.Optional;
-import java.lang.Short;
 
 
 @SpringBootApplication
@@ -15,8 +17,10 @@ import java.lang.Short;
 @RestController                 // handles GET, POST, DELETE, PUT requests
 @RequestMapping("/Home")        // base url
 public class MyFirstMicroserviceApplication {
+
 	public MyFirstMicroserviceApplication() {
 	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}
@@ -32,7 +36,7 @@ public class MyFirstMicroserviceApplication {
 	int actor_id;
 	String first_name;
 	String last_name;
-	Actor addActor = new Actor();
+	Actor actor = new Actor();
 
 	@Autowired
 	private ActorRepository actorRepository;
@@ -66,12 +70,14 @@ public class MyFirstMicroserviceApplication {
 		return "Actor Added using POST";
 	}
 
-	@PutMapping("/addnewactor")
-	public String addNewActor(@RequestParam String first_name, @RequestParam String last_name) {
-		System.out.println(first_name + " " + last_name);
-		Actor newActor = new Actor(first_name, last_name);
-		actorRepository.save(newActor);
-		return "Added new Actor, using PUT";
+	@PutMapping("/updateactor")
+	public ResponseEntity<Actor> updateActor(@RequestParam Integer actor_id, String first_name, String last_name) throws ResourceNotFoundException {
+		Actor actor = actorRepository.findById(actor_id).orElseThrow(()-> new ResourceNotFoundException("Actor not found for this ID"));
+		actor.setFirst_name(first_name);
+		actor.setLast_name(last_name);
+		actorRepository.save(actor);
+		System.out.println("Updated Actor Information: " + actor_id + first_name + last_name);
+		return ResponseEntity.ok(actor);
 	}
 
 
@@ -155,6 +161,26 @@ public class MyFirstMicroserviceApplication {
 		return languageRepository.findAll();
 	}
 
+	@GetMapping("/language/{language_id}")
+	public Optional<Language> getLanguageByID (@PathVariable("language_id") Integer language_id) {
+		return languageRepository.findById(language_id);
+	}
+
+	@PostMapping("/addlanguage")
+	public String addLanguage (@RequestParam Integer language_id, @RequestParam String name) {
+		System.out.println("New language called " + name + " was added");
+		Language language = new Language(language_id, name);
+		languageRepository.save(language);
+		return "language saved";
+	}
+
+	@PutMapping("addnewlanguage")
+	public String addNewLanguage (@RequestParam Integer language_id, @RequestParam String name) {
+		System.out.println("A new Language called " + name + " was successfully added");
+		Language language = new Language(language_id, name);
+		languageRepository.save(language);
+		return "new language saved";
+	}
 
 
 
