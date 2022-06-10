@@ -16,6 +16,8 @@ public class Film {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int film_id;
+
+    String title;
     int length;
     int release_year;
     String rating;
@@ -28,8 +30,9 @@ public class Film {
     public Film() {                                 // empty constructor
     }
 
-    public Film(int film_id, int length, int release_year, String rating, int language_id) {
+    public Film(int film_id, String title, int length, int release_year, String rating, int language_id) {
         this.film_id = film_id;
+        this.title = title;
         this.length = length;
         this.release_year = release_year;
         this.rating = rating;
@@ -44,6 +47,14 @@ public class Film {
 
     public void setFilm_id(int film_id) {
         this.film_id = film_id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getLength() {

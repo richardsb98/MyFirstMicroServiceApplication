@@ -90,8 +90,8 @@ public class MyFirstMicroserviceApplication {
 	//////////////////////////////////////////////////////////////// Film Table ////////////////////////////////////////////////////////////////
 
 
-
 	int film_id;
+	String title;
 	int length;
 	int release_year;
 	String rating;
@@ -100,13 +100,17 @@ public class MyFirstMicroserviceApplication {
     @Autowired
 	private FilmRepository filmRepository;
 
-	@GetMapping("/All_Films")
+	@GetMapping("/allfilms")
 	@ResponseBody
 	public Iterable<Film> getAllFilms() {
 		return filmRepository.findAll();
 	}
 
 
+	@GetMapping("/film/{film_id}")
+	public Optional<Film> GetFilmByID (@PathVariable("film_id") int filmID) {
+		return filmRepository.findById(filmID);
+	}
 
 
 }
