@@ -25,77 +25,56 @@ public class MyFirstMicroserviceApplication {
 	public MyFirstMicroserviceApplication() {
 	}
 
-	@Autowired
-	private ActorRepository actorRepository;
-
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}
 
-	public MyFirstMicroserviceApplication(ActorRepository actorRepository) {
+	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository) {
 		this.actorRepository = actorRepository;
+		this.filmRepository = filmRepository;
 	}
 
+	@Autowired
+	private ActorRepository actorRepository;
 
-	@GetMapping("/All_Actors")
+	@GetMapping("/allactors")
 	@ResponseBody
 	public Iterable<Actor> getAllActors() {
 		return actorRepository.findAll();
 	}
 
 	@GetMapping("/actor/{actor_id}")
-	@ResponseBody
 	public Optional<Actor> getActorID(@PathVariable("actor_id") int actorID) {
 		return actorRepository.findById(actorID);
 	}
 
-//	public ActorsName(){
-//		return
-//	}
-//
-//	@GetMapping("/actor/{firstname}/{lastname}")
-//	@ResponseBody
-//	public List<Actor> getActorName (@PathVariable("first_name") String firstname, @PathVariable("last_name") String lastname) {
-//		return NameRepository.findByLastName(firstname);
+	@GetMapping("/actor")
+	public Optional<Actor> getActorByID(@RequestParam Integer actor_id) {
+		return actorRepository.findById(actor_id);
+	}
 
+	@GetMapping("/actorfirstname")
+	public Optional<Actor> getActorByFirstName(@RequestParam String first_name, Integer actor_id) {
+		return actorRepository.findById(actor_id);
+	}
 
-//	@GetMapping("/actor")
-//	public Iterable<Actor> isActorAvailable(@RequestBody Actor actor) {
-//		return NameRepository.
-//
-//	}
-
-//	@GetMapping("/actor_firstname")
-//	public Iterable<Actor> getActorFirstName(@RequestParam String first_name) {
-//		return NameRepository.findByLastName(first_name);
-//
-//	}
-
-
-//	@GetMapping("/actor")
-//	public Actor isActorAvailable(@RequestBody Actor actor) {
-//		return actorRepository.findByFirstName(actor.first_name, actor.last_name)
-//	}
-//
-//
-
-
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	@PostMapping("/addActor")
+	@PostMapping("/addactor")
 	@ResponseBody
 	public String addActor(@RequestParam String first_name, @RequestParam String last_name) {
 		System.out.println(first_name + " " + last_name);
 		Actor newActor = new Actor(first_name, last_name);
 		actorRepository.save(newActor);
-		return "Actor Added";
+		return "Actor Added using POST";
 	}
 
-	@PutMapping("/addNewActor")
+	@PutMapping("/addnewactor")
 	@ResponseBody
 	public String addNewActor(@RequestParam String first_name, @RequestParam String last_name) {
-		return "Added new Actor";
+		System.out.println(first_name + " " + last_name);
+		Actor newActor = new Actor(first_name, last_name);
+		actorRepository.save(newActor);
+		return "Added new Actor, using PUT";
 	}
 
 
@@ -107,38 +86,6 @@ public class MyFirstMicroserviceApplication {
 	}
 
 
-//	@DeleteMapping(value = "/posts/{id}")
-//	public ResponseEntity<Long> deletePost(@PathVariable Long id) {
-//
-//		var isRemoved = postService.delete(id);
-//
-//		if (!isRemoved) {
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		}
-//
-//		return new ResponseEntity<>(id, HttpStatus.OK);
-//	}
-
-
-	//	@Autowired
-//	private @Qualifier("film") FilmRepository filmRepository;
-
-
-	//	public MyFirstMicroserviceApplication (@Qualifier("film") FilmRepository filmRepository){
-//		this.filmRepository = filmRepository;
-//	}
-
-//	@PostMapping("/Add_Actors")
-//	public @ResponseBody String Add_Actor(@RequestParam String actor_name){
-//
-//	}
-
-//	@GetMapping("/All_Films")
-//	public @ResponseBody
-//	Iterable<Film>getAllFilms(){
-//		return filmRepository.findAll();
-//	}
-//
 
 
 
@@ -149,13 +96,15 @@ public class MyFirstMicroserviceApplication {
 	int length;
 	Year release_year;
 	Enum rating;
-
+	Film film = new Film();
+    @Autowired
 	private FilmRepository filmRepository;
 
-	public MyFirstMicroserviceApplication(FilmRepository filmRepository) {
-		this.filmRepository = filmRepository;
+	@GetMapping("/All_Films")
+	@ResponseBody
+	public Iterable<Film> getAllFilms() {
+		return filmRepository.findAll();
 	}
-
 
 
 }
