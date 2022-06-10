@@ -1,14 +1,13 @@
 package com.tsi.richard.stanleybloom.program;
 
-import org.hibernate.type.descriptor.sql.SmallIntTypeDescriptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Year;
-import java.util.List;
 import java.util.Optional;
+import java.lang.Short;
 
 
 @SpringBootApplication
@@ -16,6 +15,7 @@ import java.util.Optional;
 @RestController                 // handles GET, POST, DELETE, PUT requests
 @RequestMapping("/Home")        // base url
 public class MyFirstMicroserviceApplication {
+
 
 	String first_name;
 	String last_name;
@@ -60,7 +60,6 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@PostMapping("/addactor")
-	@ResponseBody
 	public String addActor(@RequestParam String first_name, @RequestParam String last_name) {
 		System.out.println(first_name + " " + last_name);
 		Actor newActor = new Actor(first_name, last_name);
@@ -69,7 +68,6 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@PutMapping("/addnewactor")
-	@ResponseBody
 	public String addNewActor(@RequestParam String first_name, @RequestParam String last_name) {
 		System.out.println(first_name + " " + last_name);
 		Actor newActor = new Actor(first_name, last_name);
@@ -93,9 +91,11 @@ public class MyFirstMicroserviceApplication {
 
 
 
+	int film_id;
 	int length;
-	Year release_year;
-	Enum rating;
+	int release_year;
+	String rating;
+	int language_id;
 	Film film = new Film();
     @Autowired
 	private FilmRepository filmRepository;
@@ -105,6 +105,8 @@ public class MyFirstMicroserviceApplication {
 	public Iterable<Film> getAllFilms() {
 		return filmRepository.findAll();
 	}
+
+
 
 
 }

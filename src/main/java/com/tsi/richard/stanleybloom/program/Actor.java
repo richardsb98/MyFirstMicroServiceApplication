@@ -3,6 +3,7 @@ package com.tsi.richard.stanleybloom.program;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "actor")
 public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,17 +9,16 @@ import java.time.Year;
 import java.util.Optional;
 
 @Entity
-
+@Table(name = "film")
 public class Film {
 
     //////////////////////////////// Attributes ////////////////////////////////
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int film_id;
-
     int length;
-    Year release_year;
-    Enum rating;
+    int release_year;
+    String rating;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int language_id;
@@ -29,7 +28,7 @@ public class Film {
     public Film() {                                 // empty constructor
     }
 
-    public Film(int film_id, int length, Year release_year, Enum rating, int language_id) {
+    public Film(int film_id, int length, int release_year, String rating, int language_id) {
         this.film_id = film_id;
         this.length = length;
         this.release_year = release_year;
@@ -55,19 +54,19 @@ public class Film {
         this.length = length;
     }
 
-    public Year getRelease_year() {
+    public int getRelease_year() {
         return release_year;
     }
 
-    public void setRelease_year(Year release_year) {
+    public void setRelease_year(int release_year) {
         this.release_year = release_year;
     }
 
-    public Enum getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(Enum rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 
