@@ -4,88 +4,78 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.Year;
 import java.util.Optional;
 
-@EnableTransactionManagement
 @Entity
-@Qualifier("film")
-@Repository
-@Table(name = "film")
 
-public class Film implements FilmRepository {
+public class Film {
+
+    //////////////////////////////// Attributes ////////////////////////////////
     @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int film_id;
 
-    public Long getId() {
-        return id;
+    int length;
+    Year release_year;
+    Enum rating;
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int language_id;
+
+    //////////////////////////////// Constructor ////////////////////////////////
+
+    public Film() {                                 // empty constructor
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Film(int film_id, int length, Year release_year, Enum rating, int language_id) {
+        this.film_id = film_id;
+        this.length = length;
+        this.release_year = release_year;
+        this.rating = rating;
+        this.language_id = language_id;
     }
 
-    @Override
-    public <S extends Film> S save(S entity) {
-        return null;
+    //////////////////////////////// Getters and Setters ////////////////////////////////
+
+    public int getFilm_id() {
+        return film_id;
     }
 
-    @Override
-    public <S extends Film> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
+    public void setFilm_id(int film_id) {
+        this.film_id = film_id;
     }
 
-    @Override
-    public Optional<Film> findById(Integer integer) {
-        return Optional.empty();
+    public int getLength() {
+        return length;
     }
 
-    @Override
-    public boolean existsById(Integer integer) {
-        return false;
+    public void setLength(int length) {
+        this.length = length;
     }
 
-    @Override
-    public Iterable<Film> findAll() {
-        return null;
+    public Year getRelease_year() {
+        return release_year;
     }
 
-    @Override
-    public Iterable<Film> findAllById(Iterable<Integer> integers) {
-        return null;
+    public void setRelease_year(Year release_year) {
+        this.release_year = release_year;
     }
 
-    @Override
-    public long count() {
-        return 0;
+    public Enum getRating() {
+        return rating;
     }
 
-    @Override
-    public void deleteById(Integer integer) {
-
+    public void setRating(Enum rating) {
+        this.rating = rating;
     }
 
-    @Override
-    public void delete(Film entity) {
-
+    public int getLanguage_id() {
+        return language_id;
     }
 
-    @Override
-    public void deleteAllById(Iterable<? extends Integer> integers) {
-
-    }
-
-    @Override
-    public void deleteAll(Iterable<? extends Film> entities) {
-
-    }
-
-    @Override
-    public void deleteAll() {
-
+    public void setLanguage_id(int language_id) {
+        this.language_id = language_id;
     }
 }

@@ -11,8 +11,8 @@ class ActorTest {
 
     @Test
     void testActor(){
-        Assertions.assertEquals(null, testActor.getFirst_name(), "first_name is not initialised");
-        Assertions.assertEquals(null, testActor.getLast_name(), "last_name is not initialised");
+        Assertions.assertEquals(first_name, testActor.getFirst_name(), "first_name is not initialised");
+        Assertions.assertEquals(last_name, testActor.getLast_name(), "last_name is not initialised");
 
     }
 

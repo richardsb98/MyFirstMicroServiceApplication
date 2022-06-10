@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 
 public class addActorStepDefs extends MyFirstMicroserviceApplication {
 
-    Actor testActor = new Actor("first_name", "last_name");
+    Actor testActor = new Actor();
 
     public addActorStepDefs(ActorRepository actorRepository) {
         super(actorRepository);
