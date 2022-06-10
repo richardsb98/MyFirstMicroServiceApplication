@@ -130,12 +130,17 @@ public class MyFirstMicroserviceApplication {
 		return "saved";
 	}
 
-	@PutMapping("/addnewfilm")
-	public String addNewFilm (@RequestParam int film_id, @RequestParam String title, @RequestParam int length, @RequestParam int release_year, @RequestParam String rating, @RequestParam int language_id) {
-		System.out.println("The new film titled " + title +" was saved");
-		Film newFilm = new Film(film_id, title, length, release_year, rating, language_id);
-		filmRepository.save(newFilm);
-		return "New film saved";
+	@PutMapping("/updatefilm")
+	public ResponseEntity<Film> updateFilm (@RequestParam String title, int length, int release_year, String rating, int language_id) throws ResourceNotFoundException {
+		Film film = filmRepository.findById(film_id).orElseThrow(() -> new ResourceNotFoundException("Film not found for this ID"));
+		film.setTitle(title);
+		film.setLength(length);
+		film.setRelease_year(release_year);
+		film.setRating(rating);
+		film.setLanguage_id(language_id);
+		filmRepository.save(film);
+		System.out.println("Updated Film Information: " + title + length + release_year + rating + language_id);
+		return ResponseEntity.ok(film);
 	}
 
 	@DeleteMapping("/film/{film_id}")
@@ -143,7 +148,6 @@ public class MyFirstMicroserviceApplication {
 		filmRepository.deleteById(film_id);
 		return "film deleted";
 	}
-
 
 
 
@@ -174,13 +178,16 @@ public class MyFirstMicroserviceApplication {
 		return "language saved";
 	}
 
-	@PutMapping("addnewlanguage")
-	public String addNewLanguage (@RequestParam Integer language_id, @RequestParam String name) {
-		System.out.println("A new Language called " + name + " was successfully added");
-		Language language = new Language(language_id, name);
+	@PutMapping("/updatelanguag")
+	public ResponseEntity<Language> updateLanguage(@RequestParam Integer language_id, String name) throws ResourceNotFoundException {
+		Language language = languageRepository.findById(language_id).orElseThrow(() -> new ResourceNotFoundException("Language not found for this ID"));
+		language.setLanguage_id(language_id);
+		language.setName(name);
 		languageRepository.save(language);
-		return "new language saved";
+		System.out.println("Updated Language Information: " + language_id + name);
+		return ResponseEntity.ok(language);
 	}
+
 
 
 
