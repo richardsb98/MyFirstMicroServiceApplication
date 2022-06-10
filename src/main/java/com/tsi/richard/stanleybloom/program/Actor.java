@@ -15,8 +15,6 @@ public class Actor {
 
 
 
-
-
     //Constructor
     public Actor(String first_name, String last_name) {
 

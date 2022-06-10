@@ -22,7 +22,6 @@ public class Film {
     int release_year;
     String rating;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int language_id;
 
     //////////////////////////////// Constructor ////////////////////////////////

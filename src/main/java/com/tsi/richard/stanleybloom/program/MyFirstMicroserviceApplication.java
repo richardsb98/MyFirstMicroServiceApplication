@@ -15,25 +15,24 @@ import java.lang.Short;
 @RestController                 // handles GET, POST, DELETE, PUT requests
 @RequestMapping("/Home")        // base url
 public class MyFirstMicroserviceApplication {
-
-
-	String first_name;
-	String last_name;
-	Actor addActor = new Actor();
-
-
 	public MyFirstMicroserviceApplication() {
 	}
-
-
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}
 
-	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository) {
+	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository, LanguageRepository languageRepository) {
 		this.actorRepository = actorRepository;
 		this.filmRepository = filmRepository;
+		this.languageRepository = languageRepository;
 	}
+
+	//////////////////////////////////////////////////////////////// Actor Table ////////////////////////////////////////////////////////////////
+
+	int actor_id;
+	String first_name;
+	String last_name;
+	Actor addActor = new Actor();
 
 	@Autowired
 	private ActorRepository actorRepository;
@@ -45,7 +44,7 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@GetMapping("/actor/{actor_id}")
-	public Optional<Actor> getActorID(@PathVariable("actor_id") int actorID) {
+	public Optional<Actor> getActorID(@PathVariable("actor_id") Integer actorID) {
 		return actorRepository.findById(actorID);
 	}
 
@@ -77,7 +76,7 @@ public class MyFirstMicroserviceApplication {
 
 
 	@DeleteMapping("/actor/{actor_id}")
-	public String deleteActor(@PathVariable("actor_id") int actor_id) {
+	public String deleteActor(@PathVariable("actor_id") Integer actor_id) {
 		actorRepository.deleteById(actor_id);
 		return "Actor Successfully Deleted";
 
@@ -108,9 +107,63 @@ public class MyFirstMicroserviceApplication {
 
 
 	@GetMapping("/film/{film_id}")
-	public Optional<Film> GetFilmByID (@PathVariable("film_id") int filmID) {
+	public Optional<Film> getFilmByID (@PathVariable("film_id") Integer filmID) {
 		return filmRepository.findById(filmID);
 	}
+
+	@GetMapping("/film")
+	public Optional<Film> findFilmByID (@RequestParam Integer film_id){
+		return filmRepository.findById(film_id);
+	}
+
+	@PostMapping("/addfilm")
+	public String addFilm (@RequestParam int film_id, @RequestParam String title, @RequestParam int length, @RequestParam int release_year, @RequestParam String rating, @RequestParam int language_id) {
+		System.out.println("The film titled " + title +" was saved");
+		Film newFilm = new Film(film_id, title, length, release_year, rating, language_id);
+		filmRepository.save(newFilm);
+		return "saved";
+	}
+
+	@PutMapping("/addnewfilm")
+	public String addNewFilm (@RequestParam int film_id, @RequestParam String title, @RequestParam int length, @RequestParam int release_year, @RequestParam String rating, @RequestParam int language_id) {
+		System.out.println("The new film titled " + title +" was saved");
+		Film newFilm = new Film(film_id, title, length, release_year, rating, language_id);
+		filmRepository.save(newFilm);
+		return "New film saved";
+	}
+
+	@DeleteMapping("/film/{film_id}")
+	public String deleteFilmByID (@PathVariable("film_id") Integer film_id) {
+		filmRepository.deleteById(film_id);
+		return "film deleted";
+	}
+
+
+
+
+	//////////////////////////////////////////////////////////////// Language Table ////////////////////////////////////////////////////////////////
+
+
+	@Autowired
+	private LanguageRepository languageRepository;
+
+	Language language = new Language();
+
+	@GetMapping("/alllanguages")
+	@ResponseBody
+	public Iterable<Language> AllLanguages () {
+		return languageRepository.findAll();
+	}
+
+
+
+
+
+
+
+
+
+
 
 
 }
