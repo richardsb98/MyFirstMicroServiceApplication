@@ -3,7 +3,6 @@ package com.tsi.richard.stanleybloom.program;
 import org.springframework.boot.SpringApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 //import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,10 @@ import java.util.Optional;
 @RequestMapping("/Home")        // base url
 public class MyFirstMicroserviceApplication {
 
-	public MyFirstMicroserviceApplication() {
+	public MyFirstMicroserviceApplication(){
+	}
+
+	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository, LanguageRepository languageRepository, CategoryRepository categoryRepository, Film_CategoryRepository film_categoryRepository) {
 	}
 
 	public static void main(String[] args) {
@@ -143,7 +145,7 @@ public class MyFirstMicroserviceApplication {
 		return ResponseEntity.ok(film);
 	}
 
-	@DeleteMapping("/film/{film_id}")
+	@DeleteMapping("/deletefilm/{film_id}")
 	public String deleteFilmByID (@PathVariable("film_id") Integer film_id) {
 		filmRepository.deleteById(film_id);
 		return "film deleted";
@@ -178,7 +180,7 @@ public class MyFirstMicroserviceApplication {
 		return "language saved";
 	}
 
-	@PutMapping("/updatelanguag")
+	@PutMapping("/updatelanguage")
 	public ResponseEntity<Language> updateLanguage(@RequestParam Integer language_id, String name) throws ResourceNotFoundException {
 		Language language = languageRepository.findById(language_id).orElseThrow(() -> new ResourceNotFoundException("Language not found for this ID"));
 		language.setLanguage_id(language_id);
@@ -186,6 +188,12 @@ public class MyFirstMicroserviceApplication {
 		languageRepository.save(language);
 		System.out.println("Updated Language Information: " + language_id + name);
 		return ResponseEntity.ok(language);
+	}
+
+	@DeleteMapping("/deletelanguage/{language_id}")
+	public String deleteLanguageByID (@PathVariable("language_id") Integer language_id) {
+		languageRepository.deleteById(language_id);
+		return "Actor Deleted";
 	}
 
 

@@ -10,9 +10,9 @@ public class addActorStepDefs extends MyFirstMicroserviceApplication {
 
     Actor testActor = new Actor();
 
-    public addActorStepDefs(ActorRepository actorRepository) {
-        super(actorRepository);
-    }
+//    public addActorStepDefs(ActorRepository actorRepository) {
+//        super(actorRepository);
+//    }
 
     @Given("I have the actor information")
     public void i_have_the_actor_information() {

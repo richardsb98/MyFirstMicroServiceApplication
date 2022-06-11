@@ -1,7 +1,10 @@
 package com.tsi.richard.stanleybloom.program;
 
-import javax.persistence.*;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import javax.persistence.*;
+@Component
 @Entity
 @Table(name = "actor")
 public class Actor {
