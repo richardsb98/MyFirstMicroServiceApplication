@@ -17,11 +17,12 @@ import java.util.Optional;
 @RequestMapping("/Home")        // base url
 public class MyFirstMicroserviceApplication {
 
+
 	public MyFirstMicroserviceApplication(){
 	}
 
 	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository, LanguageRepository languageRepository, CategoryRepository categoryRepository,
-										  Film_CategoryRepository film_categoryRepository) {
+										  Film_CategoryRepository film_categoryRepository, Film_ActorRepository film_actorRepository) {
 	}
 
 	public static void main(String[] args) {
@@ -34,7 +35,7 @@ public class MyFirstMicroserviceApplication {
 		this.filmRepository = filmRepository;
 		this.languageRepository = languageRepository;
 		this.categoryRepository = categoryRepository;
-		this.film_actorRepository
+		this.film_actorRepository = film_actorRepository;
 	}
 
 	//////////////////////////////////////////////////////////////// Actor Table ////////////////////////////////////////////////////////////////
@@ -245,45 +246,45 @@ public class MyFirstMicroserviceApplication {
 	//////////////////////////////////////////////////////////////// Film_Actor Table ////////////////////////////////////////////////////////////////
 
 	@Autowired
-	private CategoryRepository categoryRepository;
-
-	@GetMapping("/allcategories")
-	public Iterable<Category> getAllCategory() {
-		return categoryRepository.findAll();
-	}
-
-	@GetMapping("category/{category_id}")
-	public Optional<Category> getCategoryByID(@PathVariable("category_id") Integer category_id) {
-		return categoryRepository.findById(category_id);
-	}
-
-	@PostMapping("/addcategory")
-	public String addCategory (@RequestParam Integer category_id, @RequestParam String name) {
-		Category newCategory = new Category(category_id, name);
-		System.out.println("New Category Called " + name + " Was Added To The Database");
-		categoryRepository.save(newCategory);
-		return "New Category Saved";
-	}
-
-	@PutMapping("/updatecategory")
-	public ResponseEntity<Category> updateCategory (@RequestParam Integer category_id, String name) throws ResourceNotFoundException {
-		Category updateCategory = categoryRepository.findById(category_id).orElseThrow(() -> new ResourceNotFoundException("No Category Found With That ID"));
-		updateCategory.setCategory_id(category_id);
-		updateCategory.setName(name);
-		categoryRepository.save(updateCategory);
-		System.out.println("Updated Category Information: " + category_id + " " + name);
-		return ResponseEntity.ok(updateCategory);
-	}
-
-	@DeleteMapping("/deletecategory/{category_id}")
-	public String deleteCategory(@PathVariable("category_id") Integer category_id, String name) {
-		categoryRepository.deleteById(category_id);
-		return "Category Deleted";
-	}
-
-
-
-
+	private Film_ActorRepository film_actorRepository;
+//
+//	@GetMapping("/allcategories")
+//	public Iterable<Category> getAllCategory() {
+//		return categoryRepository.findAll();
+//	}
+//
+//	@GetMapping("category/{category_id}")
+//	public Optional<Category> getCategoryByID(@PathVariable("category_id") Integer category_id) {
+//		return categoryRepository.findById(category_id);
+//	}
+//
+//	@PostMapping("/addcategory")
+//	public String addCategory (@RequestParam Integer category_id, @RequestParam String name) {
+//		Category newCategory = new Category(category_id, name);
+//		System.out.println("New Category Called " + name + " Was Added To The Database");
+//		categoryRepository.save(newCategory);
+//		return "New Category Saved";
+//	}
+//
+//	@PutMapping("/updatecategory")
+//	public ResponseEntity<Category> updateCategory (@RequestParam Integer category_id, String name) throws ResourceNotFoundException {
+//		Category updateCategory = categoryRepository.findById(category_id).orElseThrow(() -> new ResourceNotFoundException("No Category Found With That ID"));
+//		updateCategory.setCategory_id(category_id);
+//		updateCategory.setName(name);
+//		categoryRepository.save(updateCategory);
+//		System.out.println("Updated Category Information: " + category_id + " " + name);
+//		return ResponseEntity.ok(updateCategory);
+//	}
+//
+//	@DeleteMapping("/deletecategory/{category_id}")
+//	public String deleteCategory(@PathVariable("category_id") Integer category_id, String name) {
+//		categoryRepository.deleteById(category_id);
+//		return "Category Deleted";
+//	}
+//
+//
+//
+//
 
 
 
