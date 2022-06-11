@@ -6,11 +6,11 @@ import javax.persistence.*;
 @Table(name = "language")
 public class Language {
 
-    public Language() {                                 // empty constructor
+    public Language() {                                                             // Empty constructor
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)                             // Attributes
     int language_id;
     String name;
 

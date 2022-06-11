@@ -20,17 +20,21 @@ public class MyFirstMicroserviceApplication {
 	public MyFirstMicroserviceApplication(){
 	}
 
-	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository, LanguageRepository languageRepository, CategoryRepository categoryRepository, Film_CategoryRepository film_categoryRepository) {
+	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository, LanguageRepository languageRepository, CategoryRepository categoryRepository,
+										  Film_CategoryRepository film_categoryRepository) {
 	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}
 
-	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository, LanguageRepository languageRepository) {
+	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository, LanguageRepository languageRepository, CategoryRepository categoryRepository,
+										  Film_ActorRepository film_actorRepository) {
 		this.actorRepository = actorRepository;
 		this.filmRepository = filmRepository;
 		this.languageRepository = languageRepository;
+		this.categoryRepository = categoryRepository;
+		this.film_actorRepository
 	}
 
 	//////////////////////////////////////////////////////////////// Actor Table ////////////////////////////////////////////////////////////////
@@ -44,7 +48,6 @@ public class MyFirstMicroserviceApplication {
 	private ActorRepository actorRepository;
 
 	@GetMapping("/allactors")
-	@ResponseBody
 	public Iterable<Actor> getAllActors() {
 		return actorRepository.findAll();
 	}
@@ -69,7 +72,7 @@ public class MyFirstMicroserviceApplication {
 		System.out.println(first_name + " " + last_name);
 		Actor newActor = new Actor(first_name, last_name);
 		actorRepository.save(newActor);
-		return "Actor Added using POST";
+		return "New Actor Saved";
 	}
 
 	@PutMapping("/updateactor")
@@ -86,7 +89,7 @@ public class MyFirstMicroserviceApplication {
 	@DeleteMapping("/actor/{actor_id}")
 	public String deleteActor(@PathVariable("actor_id") Integer actor_id) {
 		actorRepository.deleteById(actor_id);
-		return "Actor Successfully Deleted";
+		return "Actor Deleted";
 
 	}
 
@@ -108,7 +111,6 @@ public class MyFirstMicroserviceApplication {
 	private FilmRepository filmRepository;
 
 	@GetMapping("/allfilms")
-	@ResponseBody
 	public Iterable<Film> getAllFilms() {
 		return filmRepository.findAll();
 	}
@@ -129,7 +131,7 @@ public class MyFirstMicroserviceApplication {
 		System.out.println("The film titled " + title +" was saved");
 		Film newFilm = new Film(film_id, title, length, release_year, rating, language_id);
 		filmRepository.save(newFilm);
-		return "saved";
+		return "New Film Saved";
 	}
 
 	@PutMapping("/updatefilm")
@@ -148,7 +150,7 @@ public class MyFirstMicroserviceApplication {
 	@DeleteMapping("/deletefilm/{film_id}")
 	public String deleteFilmByID (@PathVariable("film_id") Integer film_id) {
 		filmRepository.deleteById(film_id);
-		return "film deleted";
+		return "Film Deleted";
 	}
 
 
@@ -162,7 +164,6 @@ public class MyFirstMicroserviceApplication {
 	Language language = new Language();
 
 	@GetMapping("/alllanguages")
-	@ResponseBody
 	public Iterable<Language> AllLanguages () {
 		return languageRepository.findAll();
 	}
@@ -177,7 +178,7 @@ public class MyFirstMicroserviceApplication {
 		System.out.println("New language called " + name + " was added");
 		Language language = new Language(language_id, name);
 		languageRepository.save(language);
-		return "language saved";
+		return "New language Saved";
 	}
 
 	@PutMapping("/updatelanguage")
@@ -186,14 +187,98 @@ public class MyFirstMicroserviceApplication {
 		language.setLanguage_id(language_id);
 		language.setName(name);
 		languageRepository.save(language);
-		System.out.println("Updated Language Information: " + language_id + name);
+		System.out.println("Updated Language Information: " + language_id + " " + name);
 		return ResponseEntity.ok(language);
 	}
 
 	@DeleteMapping("/deletelanguage/{language_id}")
 	public String deleteLanguageByID (@PathVariable("language_id") Integer language_id) {
 		languageRepository.deleteById(language_id);
-		return "Actor Deleted";
+		return "Language Deleted";
+	}
+
+
+
+
+	//////////////////////////////////////////////////////////////// Category Table ////////////////////////////////////////////////////////////////
+
+
+	@Autowired
+	private CategoryRepository categoryRepository;
+
+	@GetMapping("/allcategories")
+	public Iterable<Category> getAllCategory() {
+		return categoryRepository.findAll();
+	}
+
+	@GetMapping("category/{category_id}")
+	public Optional<Category> getCategoryByID(@PathVariable("category_id") Integer category_id) {
+		return categoryRepository.findById(category_id);
+	}
+
+	@PostMapping("/addcategory")
+	public String addCategory (@RequestParam Integer category_id, @RequestParam String name) {
+		Category newCategory = new Category(category_id, name);
+		System.out.println("New Category Called " + name + " Was Added To The Database");
+		categoryRepository.save(newCategory);
+		return "New Category Saved";
+	}
+
+	@PutMapping("/updatecategory")
+	public ResponseEntity<Category> updateCategory (@RequestParam Integer category_id, String name) throws ResourceNotFoundException {
+		Category updateCategory = categoryRepository.findById(category_id).orElseThrow(() -> new ResourceNotFoundException("No Category Found With That ID"));
+		updateCategory.setCategory_id(category_id);
+		updateCategory.setName(name);
+		categoryRepository.save(updateCategory);
+		System.out.println("Updated Category Information: " + category_id + " " + name);
+		return ResponseEntity.ok(updateCategory);
+	}
+
+	@DeleteMapping("/deletecategory/{category_id}")
+	public String deleteCategory(@PathVariable("category_id") Integer category_id, String name) {
+		categoryRepository.deleteById(category_id);
+		return "Category Deleted";
+	}
+
+
+
+	//////////////////////////////////////////////////////////////// Film_Actor Table ////////////////////////////////////////////////////////////////
+
+	@Autowired
+	private CategoryRepository categoryRepository;
+
+	@GetMapping("/allcategories")
+	public Iterable<Category> getAllCategory() {
+		return categoryRepository.findAll();
+	}
+
+	@GetMapping("category/{category_id}")
+	public Optional<Category> getCategoryByID(@PathVariable("category_id") Integer category_id) {
+		return categoryRepository.findById(category_id);
+	}
+
+	@PostMapping("/addcategory")
+	public String addCategory (@RequestParam Integer category_id, @RequestParam String name) {
+		Category newCategory = new Category(category_id, name);
+		System.out.println("New Category Called " + name + " Was Added To The Database");
+		categoryRepository.save(newCategory);
+		return "New Category Saved";
+	}
+
+	@PutMapping("/updatecategory")
+	public ResponseEntity<Category> updateCategory (@RequestParam Integer category_id, String name) throws ResourceNotFoundException {
+		Category updateCategory = categoryRepository.findById(category_id).orElseThrow(() -> new ResourceNotFoundException("No Category Found With That ID"));
+		updateCategory.setCategory_id(category_id);
+		updateCategory.setName(name);
+		categoryRepository.save(updateCategory);
+		System.out.println("Updated Category Information: " + category_id + " " + name);
+		return ResponseEntity.ok(updateCategory);
+	}
+
+	@DeleteMapping("/deletecategory/{category_id}")
+	public String deleteCategory(@PathVariable("category_id") Integer category_id, String name) {
+		categoryRepository.deleteById(category_id);
+		return "Category Deleted";
 	}
 
 

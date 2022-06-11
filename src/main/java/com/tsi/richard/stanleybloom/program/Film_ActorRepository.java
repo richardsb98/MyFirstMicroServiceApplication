@@ -1,4 +1,8 @@
 package com.tsi.richard.stanleybloom.program;
 
-public interface Film_ActorRepository {
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
+
+@Service
+public interface Film_ActorRepository extends CrudRepository<Film_Actor, Integer> {
 }
