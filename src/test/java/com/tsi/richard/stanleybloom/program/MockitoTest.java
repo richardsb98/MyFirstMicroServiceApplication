@@ -7,7 +7,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.*;
 
@@ -31,8 +36,6 @@ public class MockitoTest {
     @Mock
     private CategoryRepository categoryRepository;
 
-    @Mock
-    private Film_CategoryRepository film_categoryRepository;
 
 
 
@@ -42,8 +45,7 @@ public class MockitoTest {
         filmRepository = mock(FilmRepository.class);
         languageRepository = mock(LanguageRepository.class);
         categoryRepository = mock(CategoryRepository.class);
-        film_categoryRepository = mock(Film_CategoryRepository.class);
-        myfirstmicroserviceapplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, languageRepository, categoryRepository, film_categoryRepository);
+        myfirstmicroserviceapplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, languageRepository, categoryRepository);
     }
 
     @Test
@@ -65,6 +67,37 @@ public class MockitoTest {
 
 
 
+   @Test
+    public void getallActors(){
+        Actor testActor = new Actor("Kevin", "Hart", 208);
+        testActor.setActor_id(208);
+        when(actorRepository.findById(208)).thenReturn(Optional.of(testActor));
+        Iterable<Actor> actual = myfirstmicroserviceapplication.getAllActors();
+        Actor expected = testActor;
+        Assertions.assertEquals(expected, actual, "Unable to get all actors");
+   }
 
 
+   @Test
+    public void addAnActor(){
+        Actor testActor = new Actor ("Ryan", "Reynolds", 209);
+        testActor.setActor_id(209);
+        Actor actual = myfirstmicroserviceapplication.addActor(testActor.getFirst_name(), testActor.getLast_name(), testActor.getActor_id()).;
+        ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
+        verify(actorRepository).save(actorArgumentCaptor.capture());
+        Actor expected = actorArgumentCaptor.getValue();
+        Assertions.assertEquals(expected, actual, "The actor was not added");
+   }
+
+
+
+   @Test
+    public void deleteActor(){
+        Actor testActor = new Actor("actor", "test", 2);
+        Optional<Actor> optionalactor = Optional.of(actor);
+       Mockito.when(actorRepository.findById(2)).thenReturn(optionalactor);
+       String actual = myfirstmicroserviceapplication.deleteActor(2);
+       Mockito.verify(actorRepository).delete(actor);
+       Assertions.assertEquals("Actor Deleted", actual, "Actor was not deleted");
+   }
 }

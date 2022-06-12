@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ActorTest {
 
-    Actor testActor = new Actor("first_name", "last_name");
+    Actor testActor = new Actor("first_name", "last_name", 1);
 
     @Test
     public void testActor(){
