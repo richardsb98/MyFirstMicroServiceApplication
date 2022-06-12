@@ -10,6 +10,8 @@ import java.util.Optional;
 @Service
 public interface ActorRepository extends CrudRepository<Actor,Integer>{
 
+
+
 }
 
 

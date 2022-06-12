@@ -64,7 +64,7 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@GetMapping("/actorfirstname")
-	public Optional<Actor> getActorByFirstName(@RequestParam String first_name, Integer actor_id) {
+	public Optional<Actor> getActorByFirstName(@RequestParam String first_name, @RequestParam String last_name, Integer actor_id) {
 		return actorRepository.findById(actor_id);
 	}
 
