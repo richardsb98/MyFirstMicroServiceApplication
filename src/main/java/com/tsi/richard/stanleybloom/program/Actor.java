@@ -1,9 +1,9 @@
 package com.tsi.richard.stanleybloom.program;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Component
@@ -18,17 +18,26 @@ public class Actor {
     String first_name;
     String last_name;
 
-    @ManyToMany(mappedBy = "actors")
-    Set<Film> filmactors;
+
+
+    @ManyToMany
+            (fetch = FetchType.LAZY,
+                    cascade = {
+                            CascadeType.PERSIST,
+                            CascadeType.MERGE
+                    },
+            mappedBy = "actors")
+    private Set<Film> films = new HashSet<>();
 
 
 
 
     //Constructor
-    public Actor(String first_name, String last_name) {
+    public Actor(String first_name, String last_name, Integer actor_id) {
 
         this.first_name = first_name;
         this.last_name = last_name;
+        this.actor_id = actor_id;
     }
 
 

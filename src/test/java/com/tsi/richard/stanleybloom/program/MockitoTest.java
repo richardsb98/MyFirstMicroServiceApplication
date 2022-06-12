@@ -55,9 +55,9 @@ public class MockitoTest {
 
     @Test
     public void testAddActor(){
-        Actor savedActor = new Actor ("first_name", "last_name");
+        Actor savedActor = new Actor ("first_name", "last_name", 1);
         String Expected = "Saved";
-        String Actual = myfirstmicroserviceapplication.addActor(savedActor.getFirst_name(),savedActor.getLast_name());
+        String Actual = myfirstmicroserviceapplication.addActor(savedActor.getFirst_name(),savedActor.getLast_name(), savedActor.getActor_id());
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
         verify(actorRepository).save(actorArgumentCaptor.capture());
         Assertions.assertEquals(Expected, Actual, "Actor data not saved");

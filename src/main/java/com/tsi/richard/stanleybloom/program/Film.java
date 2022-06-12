@@ -25,11 +25,16 @@ public class Film {
     String rating;
 
     @ManyToMany
+            (fetch = FetchType.LAZY,
+                    cascade = {
+                            CascadeType.PERSIST,
+                            CascadeType.MERGE
+                    })
     @JoinTable(
             name = "film_actor",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id"))
-    Set<Actor> actors = new HashSet<>();
+    private Set<Actor> actors = new HashSet<>();
 
 
     int language_id;

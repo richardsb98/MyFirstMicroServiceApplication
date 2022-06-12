@@ -69,9 +69,9 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@PostMapping("/addactor")
-	public String addActor(@RequestParam String first_name, @RequestParam String last_name) {
+	public String addActor(@RequestParam String first_name, @RequestParam String last_name, @RequestParam Integer actor_id) {
 		System.out.println(first_name + " " + last_name);
-		Actor newActor = new Actor(first_name, last_name);
+		Actor newActor = new Actor(first_name, last_name, actor_id);
 		actorRepository.save(newActor);
 		return "New Actor Saved";
 	}
@@ -250,25 +250,31 @@ public class MyFirstMicroserviceApplication {
 		if (!filmRepository.existsById(film_id)) {
 			throw new ResourceNotFoundException("Not found Film with id = " + film_id);
 		}
-		Optional<Actor> actors = actorRepository.findById(film_id);
-		return new ResponseEntity<>(actors, HttpStatus.OK);
+		Optional<Actor> actor = actorRepository.findById(film_id);
+		return new ResponseEntity<>(actor, HttpStatus.OK);
 
 	}
 
 
-	@GetMapping("/actor/{actor_id}/films")
+//	@GetMapping("/actor/{actor_id}/films")
+//	public ResponseEntity<Optional<Film>> getAllFilmsByActorID(@PathVariable(value = "actor_id") Integer actor_id) {
+//		if (!actorRepository.existsById(actor_id)) {
+//			throw new ResourceNotFoundException("Not found Actor with id = " + actor_id);
+//		}
+//		Optional<Film> films = filmRepository.findById(actor_id);
+//		return new ResponseEntity<>(films, HttpStatus.OK);
+//	}
+
+
+
+	@GetMapping("/actors/{actor_id}/films")
 	public ResponseEntity<Optional<Film>> getAllFilmsByActorID(@PathVariable(value = "actor_id") Integer actor_id) {
 		if (!actorRepository.existsById(actor_id)) {
-			throw new ResourceNotFoundException("Not found Actor with id = " + actor_id);
+			throw new ResourceNotFoundException("Not found Actor  with id = " + actor_id);
 		}
 		Optional<Film> films = filmRepository.findById(actor_id);
 		return new ResponseEntity<>(films, HttpStatus.OK);
+
+
 	}
-
-
-
-
-
-
-
 }
