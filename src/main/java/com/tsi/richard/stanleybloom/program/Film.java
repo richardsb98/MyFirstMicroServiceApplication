@@ -6,7 +6,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.*;
 import java.time.Year;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Entity
 @Table(name = "film")
@@ -21,6 +23,13 @@ public class Film {
     int length;
     int release_year;
     String rating;
+
+    @ManyToMany
+    @JoinTable(
+            name = "film_actor",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id"))
+    Set<Actor> actors = new HashSet<>();
 
 
     int language_id;

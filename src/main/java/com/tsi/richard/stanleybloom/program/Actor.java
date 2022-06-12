@@ -4,6 +4,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
+import java.util.Set;
+
 @Component
 @Entity
 @Table(name = "actor")
@@ -15,6 +17,10 @@ public class Actor {
     //Attributes
     String first_name;
     String last_name;
+
+    @ManyToMany(mappedBy = "actors")
+    Set<Film> filmactors;
+
 
 
 

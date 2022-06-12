@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -22,20 +24,18 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository, LanguageRepository languageRepository, CategoryRepository categoryRepository,
-										  Film_CategoryRepository film_categoryRepository, Film_ActorRepository film_actorRepository) {
+										  Film_CategoryRepository film_categoryRepository) {
 	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}
 
-	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository, LanguageRepository languageRepository, CategoryRepository categoryRepository,
-										  Film_ActorRepository film_actorRepository) {
+	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository, LanguageRepository languageRepository, CategoryRepository categoryRepository) {
 		this.actorRepository = actorRepository;
 		this.filmRepository = filmRepository;
 		this.languageRepository = languageRepository;
 		this.categoryRepository = categoryRepository;
-		this.film_actorRepository = film_actorRepository;
 	}
 
 	//////////////////////////////////////////////////////////////// Actor Table ////////////////////////////////////////////////////////////////
@@ -54,8 +54,8 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@GetMapping("/actor/{actor_id}")
-	public Optional<Actor> getActorID(@PathVariable("actor_id") Integer actorID) {
-		return actorRepository.findById(actorID);
+	public Optional<Actor> getActorID(@PathVariable("actor_id") Integer actor_id) {
+		return actorRepository.findById(actor_id);
 	}
 
 	@GetMapping("/actor")
@@ -245,47 +245,25 @@ public class MyFirstMicroserviceApplication {
 
 	//////////////////////////////////////////////////////////////// Film_Actor Table ////////////////////////////////////////////////////////////////
 
-	@Autowired
-	private Film_ActorRepository film_actorRepository;
-//
-//	@GetMapping("/allcategories")
-//	public Iterable<Category> getAllCategory() {
-//		return categoryRepository.findAll();
-//	}
-//
-//	@GetMapping("category/{category_id}")
-//	public Optional<Category> getCategoryByID(@PathVariable("category_id") Integer category_id) {
-//		return categoryRepository.findById(category_id);
-//	}
-//
-//	@PostMapping("/addcategory")
-//	public String addCategory (@RequestParam Integer category_id, @RequestParam String name) {
-//		Category newCategory = new Category(category_id, name);
-//		System.out.println("New Category Called " + name + " Was Added To The Database");
-//		categoryRepository.save(newCategory);
-//		return "New Category Saved";
-//	}
-//
-//	@PutMapping("/updatecategory")
-//	public ResponseEntity<Category> updateCategory (@RequestParam Integer category_id, String name) throws ResourceNotFoundException {
-//		Category updateCategory = categoryRepository.findById(category_id).orElseThrow(() -> new ResourceNotFoundException("No Category Found With That ID"));
-//		updateCategory.setCategory_id(category_id);
-//		updateCategory.setName(name);
-//		categoryRepository.save(updateCategory);
-//		System.out.println("Updated Category Information: " + category_id + " " + name);
-//		return ResponseEntity.ok(updateCategory);
-//	}
-//
-//	@DeleteMapping("/deletecategory/{category_id}")
-//	public String deleteCategory(@PathVariable("category_id") Integer category_id, String name) {
-//		categoryRepository.deleteById(category_id);
-//		return "Category Deleted";
-//	}
-//
-//
-//
-//
+	@GetMapping("/films/{film_id}/actors")
+	public ResponseEntity<Optional<Actor>> getAllActorsByFilmID(@PathVariable(value = "film_id") Integer film_id) {
+		if (!filmRepository.existsById(film_id)) {
+			throw new ResourceNotFoundException("Not found Film with id = " + film_id);
+		}
+		Optional<Actor> actors = actorRepository.findById(film_id);
+		return new ResponseEntity<>(actors, HttpStatus.OK);
 
+	}
+
+
+	@GetMapping("/actor/{actor_id}/films")
+	public ResponseEntity<Optional<Film>> getAllFilmsByActorID(@PathVariable(value = "actor_id") Integer actor_id) {
+		if (!actorRepository.existsById(actor_id)) {
+			throw new ResourceNotFoundException("Not found Actor with id = " + actor_id);
+		}
+		Optional<Film> films = filmRepository.findById(actor_id);
+		return new ResponseEntity<>(films, HttpStatus.OK);
+	}
 
 
 
