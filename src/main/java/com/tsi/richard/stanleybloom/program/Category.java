@@ -1,6 +1,8 @@
 package com.tsi.richard.stanleybloom.program;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "category")
@@ -13,6 +15,16 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)                     // Attributes
     int category_id;
     String name;
+
+    @ManyToMany
+            (fetch = FetchType.LAZY,
+                    cascade = {
+                            CascadeType.PERSIST,
+                            CascadeType.MERGE
+                    },
+                    mappedBy = "actors")
+    private Set<Film> films = new HashSet<>();
+
 
 
     public Category(int category_id, String name) {                         // Constructor

@@ -256,17 +256,6 @@ public class MyFirstMicroserviceApplication {
 	}
 
 
-//	@GetMapping("/actor/{actor_id}/films")
-//	public ResponseEntity<Optional<Film>> getAllFilmsByActorID(@PathVariable(value = "actor_id") Integer actor_id) {
-//		if (!actorRepository.existsById(actor_id)) {
-//			throw new ResourceNotFoundException("Not found Actor with id = " + actor_id);
-//		}
-//		Optional<Film> films = filmRepository.findById(actor_id);
-//		return new ResponseEntity<>(films, HttpStatus.OK);
-//	}
-
-
-
 	@GetMapping("/actors/{actor_id}/films")
 	public ResponseEntity<Optional<Film>> getAllFilmsByActorID(@PathVariable(value = "actor_id") Integer actor_id) {
 		if (!actorRepository.existsById(actor_id)) {
@@ -274,7 +263,36 @@ public class MyFirstMicroserviceApplication {
 		}
 		Optional<Film> films = filmRepository.findById(actor_id);
 		return new ResponseEntity<>(films, HttpStatus.OK);
-
-
 	}
+
+
+	//////////////////////////////////////////////////////////////// Film_Categories Table ////////////////////////////////////////////////////////////////
+
+	@GetMapping("/films/{film_id}/categories")
+	public ResponseEntity<Optional<Category>> getAllCategoriesByFilmID(@PathVariable(value = "film_id") Integer film_id) {
+		if (!filmRepository.existsById(film_id)) {
+			throw new ResourceNotFoundException("Not found Film with id = " + film_id);
+		}
+		Optional<Category> categories = categoryRepository.findById(film_id);
+		return new ResponseEntity<>(categories, HttpStatus.OK);
+	}
+
+	@GetMapping("/categories/{category_id}/films")
+	public ResponseEntity<Optional<Film>> getAllFilmsByCategoryID(@PathVariable(value = "category_id") Integer category_id) {
+		if (!categoryRepository.existsById(category_id)) {
+			throw new ResourceNotFoundException("Not found Category  with id = " + category_id);
+		}
+		Optional<Film> films = filmRepository.findById(category_id);
+		return new ResponseEntity<>(films, HttpStatus.OK);
+	}
+
+
+
+
+
+
+
+
+
+
 }
