@@ -23,10 +23,6 @@ public class MyFirstMicroserviceApplication {
 	public MyFirstMicroserviceApplication(){
 	}
 
-	public MyFirstMicroserviceApplication(ActorRepository actorRepository, FilmRepository filmRepository, LanguageRepository languageRepository, CategoryRepository categoryRepository,
-										  Film_CategoryRepository film_categoryRepository) {
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}
@@ -49,22 +45,22 @@ public class MyFirstMicroserviceApplication {
 	private ActorRepository actorRepository;
 
 	@GetMapping("/allactors")
-	public Iterable<Actor> getAllActors() {										// Covered  by Test
+	public Iterable<Actor> getAllActors() {										// Covered by Mockito Test
 		return actorRepository.findAll();
 	}
 
 	@GetMapping("/actor/{actor_id}")
-	public Optional<Actor> getActorByID(@PathVariable("actor_id") Integer actor_id) {						// Covered by Test
+	public Optional<Actor> getActorByID(@PathVariable("actor_id") Integer actor_id) {						// Covered by Mockito Test
 		return actorRepository.findById(actor_id);
 	}
 
 	@GetMapping("/actorfirstname")
-	public Optional<Actor> getActorByFirstName(@RequestParam String first_name, @RequestParam String last_name, Integer actor_id) {					// Covered by Test
+	public Optional<Actor> getActorByFirstName(@RequestParam String first_name, @RequestParam String last_name, Integer actor_id) {					// Covered by Mockito Test
 		return actorRepository.findById(actor_id);
 	}
 
 	@PostMapping("/addactor")
-	public String addActor(@RequestParam String first_name, @RequestParam String last_name, @RequestParam Integer actor_id) {						// Covered by Test
+	public String addActor(@RequestParam String first_name, @RequestParam String last_name, @RequestParam Integer actor_id) {						// Covered by Mockito Test
 		System.out.println(first_name + " " + last_name);
 		Actor newActor = new Actor(first_name, last_name, actor_id);
 		actorRepository.save(newActor);
@@ -82,7 +78,7 @@ public class MyFirstMicroserviceApplication {
 	}
 
 
-	@DeleteMapping("/actor/{actor_id}")																			// Covered by Test
+	@DeleteMapping("/actor/{actor_id}")																			// Covered by Mockito Test
 	public String deleteActor(@PathVariable("actor_id") Integer actor_id) {
 		actorRepository.deleteById(actor_id);
 		return "Actor Deleted";
@@ -106,19 +102,19 @@ public class MyFirstMicroserviceApplication {
     @Autowired
 	private FilmRepository filmRepository;
 
-	@GetMapping("/allfilms")
+	@GetMapping("/allfilms")																						// Covered by Mockito Test
 	public Iterable<Film> getAllFilms() {
 		return filmRepository.findAll();
 	}
 
 
 	@GetMapping("/film/{film_id}")
-	public Optional<Film> getFilmByID (@PathVariable("film_id") Integer filmID) {
+	public Optional<Film> getFilmByID (@PathVariable("film_id") Integer filmID) {									// Covered by Mockito Test
 		return filmRepository.findById(filmID);
 	}
 
 	@GetMapping("/film")
-	public Optional<Film> findFilmByID (@RequestParam Integer film_id){
+	public Optional<Film> findFilmByID (@RequestParam Integer film_id){												// Covered by Mockito Test
 		return filmRepository.findById(film_id);
 	}
 
@@ -144,7 +140,7 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@DeleteMapping("/deletefilm/{film_id}")
-	public String deleteFilmByID (@PathVariable("film_id") Integer film_id) {
+	public String deleteFilmByID (@PathVariable("film_id") Integer film_id) {											// Covered by Mockito Test
 		filmRepository.deleteById(film_id);
 		return "Film Deleted";
 	}
@@ -162,10 +158,10 @@ public class MyFirstMicroserviceApplication {
 	@GetMapping("/alllanguages")
 	public Iterable<Language> AllLanguages () {
 		return languageRepository.findAll();
-	}
+	}									// Covered by Mockito Test
 
 	@GetMapping("/language/{language_id}")
-	public Optional<Language> getLanguageByID (@PathVariable("language_id") Integer language_id) {
+	public Optional<Language> getLanguageByID (@PathVariable("language_id") Integer language_id) {						// Covered by Mockito Test
 		return languageRepository.findById(language_id);
 	}
 
@@ -187,7 +183,7 @@ public class MyFirstMicroserviceApplication {
 		return ResponseEntity.ok(language);
 	}
 
-	@DeleteMapping("/deletelanguage/{language_id}")
+	@DeleteMapping("/deletelanguage/{language_id}")																		// Covered by Mockito Test
 	public String deleteLanguageByID (@PathVariable("language_id") Integer language_id) {
 		languageRepository.deleteById(language_id);
 		return "Language Deleted";
@@ -202,12 +198,12 @@ public class MyFirstMicroserviceApplication {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
-	@GetMapping("/allcategories")
+	@GetMapping("/allcategories")																						// Covered by Mockito Test
 	public Iterable<Category> getAllCategory() {
 		return categoryRepository.findAll();
 	}
 
-	@GetMapping("category/{category_id}")
+	@GetMapping("category/{category_id}")																				// Covered by Mockito Test
 	public Optional<Category> getCategoryByID(@PathVariable("category_id") Integer category_id) {
 		return categoryRepository.findById(category_id);
 	}
@@ -230,7 +226,7 @@ public class MyFirstMicroserviceApplication {
 		return ResponseEntity.ok(updateCategory);
 	}
 
-	@DeleteMapping("/deletecategory/{category_id}")
+	@DeleteMapping("/deletecategory/{category_id}")																		// Covered by Mockito Test
 	public String deleteCategory(@PathVariable("category_id") Integer category_id, String name) {
 		categoryRepository.deleteById(category_id);
 		return "Category Deleted";
