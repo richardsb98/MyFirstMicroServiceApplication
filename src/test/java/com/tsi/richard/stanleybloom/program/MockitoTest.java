@@ -9,10 +9,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.web.servlet.ResultActions;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
 
+import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.*;
 
@@ -21,7 +23,6 @@ public class MockitoTest {
 
     private MyFirstMicroserviceApplication myfirstmicroserviceapplication;
 
-    @InjectMocks
     private Actor actor;
 
     @Mock
@@ -48,56 +49,52 @@ public class MockitoTest {
         myfirstmicroserviceapplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, languageRepository, categoryRepository);
     }
 
+
+
+    ////////////////////////////////////////////////////// Actor Tests //////////////////////////////////////////////////////
     @Test
-    public void getAllActors() {
+    public void testgetAllActors() {
         myfirstmicroserviceapplication.getAllActors();
         verify(actorRepository).findAll();
-
     }
 
     @Test
+    public void testgetActorByID(){
+        Actor testActor = new Actor("Jack", "Dowitt", 4);
+        Mockito.when(actorRepository.findById(testActor.getActor_id())).thenReturn(Optional.of(testActor));
+        myfirstmicroserviceapplication.getActorByID(testActor.getActor_id());
+    }
+
+    @Test
+    public void testgetActorByFirstName(){
+        Actor testActor = new Actor("Hugh", "Jackman", 76);
+        Mockito.when(actorRepository.findById(testActor.getActor_id())).thenReturn(Optional.of(testActor));
+        myfirstmicroserviceapplication.getActorByFirstName(testActor.getFirst_name(), testActor.getLast_name(), testActor.getActor_id());
+    }
+
+
+   @Test
     public void testAddActor(){
-        Actor savedActor = new Actor ("first_name", "last_name", 1);
-        String Expected = "Saved";
-        String Actual = myfirstmicroserviceapplication.addActor(savedActor.getFirst_name(),savedActor.getLast_name(), savedActor.getActor_id());
-        ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
-        verify(actorRepository).save(actorArgumentCaptor.capture());
-        Assertions.assertEquals(Expected, Actual, "Actor data not saved");
-   }
-
-
-
-   @Test
-    public void getallActors(){
-        Actor testActor = new Actor("Kevin", "Hart", 208);
-        testActor.setActor_id(208);
-        when(actorRepository.findById(208)).thenReturn(Optional.of(testActor));
-        Iterable<Actor> actual = myfirstmicroserviceapplication.getAllActors();
-        Actor expected = testActor;
-        Assertions.assertEquals(expected, actual, "Unable to get all actors");
-   }
-
-
-   @Test
-    public void addAnActor(){
         Actor testActor = new Actor ("Ryan", "Reynolds", 209);
-        testActor.setActor_id(209);
-        Actor actual = myfirstmicroserviceapplication.addActor(testActor.getFirst_name(), testActor.getLast_name(), testActor.getActor_id()).;
+        String expected = "New Actor Saved";
+        String actual = myfirstmicroserviceapplication.addActor(testActor.getFirst_name(), testActor.getLast_name(), testActor.getActor_id());
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
         verify(actorRepository).save(actorArgumentCaptor.capture());
-        Actor expected = actorArgumentCaptor.getValue();
-        Assertions.assertEquals(expected, actual, "The actor was not added");
+        Assertions.assertEquals(expected, actual, "The actor was not added to the database");
    }
 
 
 
    @Test
-    public void deleteActor(){
-        Actor testActor = new Actor("actor", "test", 2);
-        Optional<Actor> optionalactor = Optional.of(actor);
-       Mockito.when(actorRepository.findById(2)).thenReturn(optionalactor);
-       String actual = myfirstmicroserviceapplication.deleteActor(2);
-       Mockito.verify(actorRepository).delete(actor);
-       Assertions.assertEquals("Actor Deleted", actual, "Actor was not deleted");
+    public void testdeleteActor(){
+        Actor testActor = new Actor();
+        testActor.setFirst_name("Fred");
+        testActor.setLast_name("Grayson");
+        testActor.setActor_id(2);
+        Mockito.lenient().when(actorRepository.findById(testActor.getActor_id())).thenReturn(Optional.of(testActor));
+        myfirstmicroserviceapplication.deleteActor(testActor.getActor_id());
    }
+
+    ////////////////////////////////////////////////////// Film Tests //////////////////////////////////////////////////////
+
 }

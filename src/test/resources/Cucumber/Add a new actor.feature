@@ -12,6 +12,14 @@ Feature: Adding a new Actor
 #    When i try to add them into the database
 #    Then I get an error message
 
+Feature
+
+
+
+
+
+
+
 
 Feature: Retrieve a film recommendation based on my preferences like category, rating, actor first name and last name, length, language, release year
   As a movie consumer, I want to find the best movie for me.
@@ -19,4 +27,7 @@ Feature: Retrieve a film recommendation based on my preferences like category, r
     Given I have the required inputs like category, rating, actor first name and last name, length, language, release year
     When I input the required info
     Then I get a movie recommendation, based on my preferences
+
+
+
 

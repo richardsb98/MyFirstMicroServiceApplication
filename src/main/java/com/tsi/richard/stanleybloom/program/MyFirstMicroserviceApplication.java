@@ -49,27 +49,22 @@ public class MyFirstMicroserviceApplication {
 	private ActorRepository actorRepository;
 
 	@GetMapping("/allactors")
-	public Iterable<Actor> getAllActors() {
+	public Iterable<Actor> getAllActors() {										// Covered  by Test
 		return actorRepository.findAll();
 	}
 
 	@GetMapping("/actor/{actor_id}")
-	public Optional<Actor> getActorID(@PathVariable("actor_id") Integer actor_id) {
-		return actorRepository.findById(actor_id);
-	}
-
-	@GetMapping("/actor")
-	public Optional<Actor> getActorByID(@RequestParam Integer actor_id) {
+	public Optional<Actor> getActorByID(@PathVariable("actor_id") Integer actor_id) {						// Covered by Test
 		return actorRepository.findById(actor_id);
 	}
 
 	@GetMapping("/actorfirstname")
-	public Optional<Actor> getActorByFirstName(@RequestParam String first_name, @RequestParam String last_name, Integer actor_id) {
+	public Optional<Actor> getActorByFirstName(@RequestParam String first_name, @RequestParam String last_name, Integer actor_id) {					// Covered by Test
 		return actorRepository.findById(actor_id);
 	}
 
 	@PostMapping("/addactor")
-	public String addActor(@RequestParam String first_name, @RequestParam String last_name, @RequestParam Integer actor_id) {
+	public String addActor(@RequestParam String first_name, @RequestParam String last_name, @RequestParam Integer actor_id) {						// Covered by Test
 		System.out.println(first_name + " " + last_name);
 		Actor newActor = new Actor(first_name, last_name, actor_id);
 		actorRepository.save(newActor);
@@ -87,7 +82,7 @@ public class MyFirstMicroserviceApplication {
 	}
 
 
-	@DeleteMapping("/actor/{actor_id}")
+	@DeleteMapping("/actor/{actor_id}")																			// Covered by Test
 	public String deleteActor(@PathVariable("actor_id") Integer actor_id) {
 		actorRepository.deleteById(actor_id);
 		return "Actor Deleted";
