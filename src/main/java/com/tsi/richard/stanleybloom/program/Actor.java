@@ -27,7 +27,7 @@ public class Actor {
                             CascadeType.MERGE
                     },
             mappedBy = "actors")
-    private Set<Film> films = new HashSet<>();
+    private Set<Film> films = new HashSet<>();                      // HashSet contains unique elements only
 
 
 

@@ -47,7 +47,7 @@ public class MyFirstMicroserviceApplication {
 	@GetMapping("/allactors")
 	public Iterable<Actor> getAllActors() {										// Covered by Mockito Test
 		return actorRepository.findAll();
-	}
+	}								// Covered by Mockito Test
 
 	@GetMapping("/actor/{actor_id}")
 	public Optional<Actor> getActorByID(@PathVariable("actor_id") Integer actor_id) {						// Covered by Mockito Test

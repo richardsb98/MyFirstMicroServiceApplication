@@ -1,7 +1,7 @@
 Feature: Adding a new Actor
   As a user I would like to add a new actor into my table
 
-  Scenario: I successfully add an actor into my table                           // sunny day path
+  Scenario: I successfully add an actor into my table
     Given I have the actor information
     When I input the data into the database
     Then I get the success return string
@@ -12,21 +12,25 @@ Feature: Adding a new Actor
 #    When i try to add them into the database
 #    Then I get an error message
 
-Feature
-
-
-
-
-
-
-
-
-Feature: Retrieve a film recommendation based on my preferences like category, rating, actor first name and last name, length, language, release year
-  As a movie consumer, I want to find the best movie for me.
-  Scenario: The user successfully gets a recommended film
-    Given I have the required inputs like category, rating, actor first name and last name, length, language, release year
-    When I input the required info
-    Then I get a movie recommendation, based on my preferences
+#Feature: Getting a film based on actor preference
+#  Scenario: I successfully retrieve a film
+#  Given I have the actor's ID
+#  When I input the actor ID into the 'find by actor ID' search bar
+#  Then I get returned the films
+#
+#
+#
+#
+#
+#
+#
+#
+#Feature: Retrieve a film recommendation based on my preferences like category, rating, actor first name and last name, length, language, release year
+#  As a movie consumer, I want to find the best movie for me.
+#  Scenario: The user successfully gets a recommended film
+#    Given I have the required inputs like category, rating, actor first name and last name, length, language, release year
+#    When I input the required info
+#    Then I get a movie recommendation, based on my preferences
 
 
 
