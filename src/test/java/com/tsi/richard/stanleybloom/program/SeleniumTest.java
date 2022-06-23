@@ -25,14 +25,14 @@ public class SeleniumTest {
     }
 
     @Test
-    public void test() {
+    public void testFilterByActorName() {
         driver.navigate().to("http://localhost:3000/");
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.findElement(By.id("outlined-basic")).click();
-        WebElement password = driver.findElement(By.id("outlined-basic"));
-        password.sendKeys("penelope");
+        WebElement actortile = driver.findElement(By.id("outlined-basic"));
+        actortile.sendKeys("penelope");
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("actorCard1")));
 //        driver.findElement(By.className("Customer")).click();
 //        wait.until(ExpectedConditions.elementToBeClickable(By.id("back")));
@@ -40,9 +40,9 @@ public class SeleniumTest {
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 
 
-        WebElement newpassword = driver.findElement(By.id("actorCard1"));
-        System.out.println(newpassword.getText().lines().toArray()[0]);
-        Assertions.assertEquals("Id: 1 First Name:PENELOPELast Name: GUINESS", newpassword.getText());
+        WebElement newactortile = driver.findElement(By.id("actorCard1"));
+        System.out.println(newactortile.getText().lines().toArray()[0]);
+        Assertions.assertEquals("Id: 1 First Name:PENELOPELast Name: GUINESS", newactortile.getText());
 
 
 
@@ -80,6 +80,20 @@ public class SeleniumTest {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("todolist")));
 
         Assertions.assertEquals(true, input.isDisplayed());
+
+    }
+
+    @Test
+    public void testFilterByFilmName() {
+        driver.navigate().to("http://localhost:3001/");
+        driver.findElement(By.id("outlined-basic")).click();
+        WebElement filmtile = driver.findElement(By.id("outlined-basic"));
+        filmtile.sendKeys("star operation");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filmCard841")));
+        WebElement newfilmtile = driver.findElement(By.id("filmCard841"));
+        System.out.println(newfilmtile.getText().lines().toArray()[0]);
+        Assertions.assertEquals("Id: 841 Title: STAR OPERATIONRunning Length: 181Release Year: 2006Age Rating: PG", newfilmtile.getText());
 
     }
 

@@ -166,7 +166,7 @@ public class MyFirstMicroserviceApplication {
 		System.out.println("New language called " + name + " was added");
 		Language language = new Language(language_id, name);
 		languageRepository.save(language);
-		return "New language Saved";
+		return "New Language Saved";
 	}
 
 	@PutMapping("/updatelanguage")
