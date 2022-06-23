@@ -6,7 +6,7 @@ Feature: Adding a new Actor
     When I input the data into the database
     Then I get the success return string
 
-#  Scenario: I don't have enough information                                //rainy day path
+#  Scenario: I don't have enough information                                rainy day path
 #    Given I have an actors first name
 #    And I don't have their last name
 #    When i try to add them into the database

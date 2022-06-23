@@ -36,10 +36,6 @@ public class MyFirstMicroserviceApplication {
 
 	//////////////////////////////////////////////////////////////// Actor Table ////////////////////////////////////////////////////////////////
 
-	int actor_id;
-	String first_name;
-	String last_name;
-	Actor actor = new Actor();
 
 	@Autowired
 	private ActorRepository actorRepository;
@@ -60,9 +56,9 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@PostMapping("/addactor")
-	public String addActor(@RequestParam String first_name, @RequestParam String last_name, @RequestParam Integer actor_id) {						// Covered by Mockito Test
+	public String addActor(@RequestHeader (name = "first_name", required = true) String first_name, @RequestHeader(name = "last_name", required = true) String last_name) {						// Covered by Mockito Test
 		System.out.println(first_name + " " + last_name);
-		Actor newActor = new Actor(first_name, last_name, actor_id);
+		Actor newActor = new Actor(first_name, last_name);
 		actorRepository.save(newActor);
 		return "New Actor Saved";
 	}

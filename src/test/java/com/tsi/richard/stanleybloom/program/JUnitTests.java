@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JUnitTests {
 
 
-    Actor testActor = new Actor("first_name", "last_name", 1);
+    Actor testActor = new Actor("first_name", "last_name");
     @Test
     public void testActor(){
         Assertions.assertEquals("first_name", testActor.getFirst_name(), "first_name is not initialised");

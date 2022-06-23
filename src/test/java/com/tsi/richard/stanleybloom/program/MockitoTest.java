@@ -60,14 +60,14 @@ public class MockitoTest {
 
     @Test
     public void testgetActorByID(){
-        Actor testActor = new Actor("Jack", "Dowitt", 4);
+        Actor testActor = new Actor("Jack", "Dowitt");
         Mockito.when(actorRepository.findById(testActor.getActor_id())).thenReturn(Optional.of(testActor));
         myfirstmicroserviceapplication.getActorByID(testActor.getActor_id());
     }
 
     @Test
     public void testgetActorByFirstName(){
-        Actor testActor = new Actor("Hugh", "Jackman", 76);
+        Actor testActor = new Actor("Hugh", "Jackman");
         Mockito.when(actorRepository.findById(testActor.getActor_id())).thenReturn(Optional.of(testActor));
         myfirstmicroserviceapplication.getActorByFirstName(testActor.getFirst_name(), testActor.getLast_name(), testActor.getActor_id());
     }
@@ -75,9 +75,9 @@ public class MockitoTest {
 
    @Test
     public void testAddActor(){
-        Actor testActor = new Actor ("Ryan", "Reynolds", 209);
+        Actor testActor = new Actor ("Ryan", "Reynolds");
         String expected = "New Actor Saved";
-        String actual = myfirstmicroserviceapplication.addActor(testActor.getFirst_name(), testActor.getLast_name(), testActor.getActor_id());
+        String actual = myfirstmicroserviceapplication.addActor(testActor.getFirst_name(), testActor.getLast_name());
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
         verify(actorRepository).save(actorArgumentCaptor.capture());
         Assertions.assertEquals(expected, actual, "The actor was not added to the database");
