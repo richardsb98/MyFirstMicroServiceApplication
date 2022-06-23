@@ -48,6 +48,41 @@ public class SeleniumTest {
 
     }
 
+    @Test
+    public void addToWatch() {
+        driver.navigate().to("http://localhost:3001/");
+        driver.findElement(By.id("towatchinput")).click();
+        WebElement input = driver.findElement(By.id("towatchinput"));
+        input.sendKeys("Planet Of the Apes");
+
+        driver.findElement(By.id("addmovie")).click();
+
+        WebElement newMovie = driver.findElement(By.id("todolist"));
+        System.out.println(newMovie.getText().lines().toArray()[0]);
+        Assertions.assertEquals("Planet Of the Apes", newMovie.getText());
+    }
+
+
+    @Test
+    public void removeToWatch() {
+        driver.navigate().to("http://localhost:3001/");
+        driver.findElement(By.id("towatchinput")).click();
+        WebElement input = driver.findElement(By.id("towatchinput"));
+        input.sendKeys("Planet of the Apes 2");
+
+        driver.findElement(By.id("addmovie")).click();
+
+        driver.findElement(By.id("todolist")).click();
+
+        driver.findElement(By.id("removewatched")).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("todolist")));
+
+        Assertions.assertEquals(true, input.isDisplayed());
+
+    }
+
     @AfterEach
     void tearDown() {
         driver.quit();
