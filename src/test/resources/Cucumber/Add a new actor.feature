@@ -3,8 +3,8 @@ Feature: Adding a new Actor
 
   Scenario: I successfully add an actor into my table
     Given I have the actor information
-    When I input the data into the database
-    Then I get the success return string
+    When I input the actor data into the database
+    Then I get the success actor return string
 
 #  Scenario: I don't have enough information                                rainy day path
 #    Given I have an actors first name

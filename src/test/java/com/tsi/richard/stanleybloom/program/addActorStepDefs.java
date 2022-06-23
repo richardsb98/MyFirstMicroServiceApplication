@@ -33,7 +33,7 @@ public class addActorStepDefs extends MyFirstMicroserviceApplication {
     private CategoryRepository categoryRepository;
 
     @Before
-    public void init() {
+    public void actorinit() {
         actorRepository = mock(ActorRepository.class);
 
         myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, languageRepository, categoryRepository);
@@ -51,7 +51,7 @@ public class addActorStepDefs extends MyFirstMicroserviceApplication {
     }
     String actual;
 
-    @When("I input the data into the database")
+    @When("I input the actor data into the database")
     public void i_input_the_data_into_the_database() {
 
     Actor actortest = new Actor(firstname, lastname);
@@ -61,13 +61,12 @@ public class addActorStepDefs extends MyFirstMicroserviceApplication {
     }
 
     String expected = "New Actor Saved";
-    @Then("I get the success return string")
-    public void i_get_the_success_return_string() {
+    @Then("I get the success actor return string")
+    public void i_get_the_success_actor_return_string() {
 
 
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
         verify(actorRepository).save(actorArgumentCaptor.capture());
-        actorArgumentCaptor.capture();
         Assertions.assertEquals(expected, actual);
     }
 }
