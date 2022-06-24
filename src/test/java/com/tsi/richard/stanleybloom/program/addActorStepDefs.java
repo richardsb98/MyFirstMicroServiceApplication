@@ -33,7 +33,7 @@ public class addActorStepDefs extends MyFirstMicroserviceApplication {
     private CategoryRepository categoryRepository;
 
     @Before
-    public void actorinit() {
+    public void actorinit() {                                               // Initilises the repository and creates a new MyFirstMicroServiceApplication method
         actorRepository = mock(ActorRepository.class);
 
         myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, filmRepository, languageRepository, categoryRepository);
@@ -42,10 +42,10 @@ public class addActorStepDefs extends MyFirstMicroserviceApplication {
     String firstname;
     String lastname;
 
-    @Given("I have the actor information")
+    @Given("I have the actor information")                                      // Straight from Add a new actor.feature
     public void i_have_the_actor_information() {
 
-        firstname = "Penelope";
+        firstname = "Penelope";                                                 // Declaring mock actor attributes
         lastname = "Guiness";
 
     }
@@ -54,15 +54,15 @@ public class addActorStepDefs extends MyFirstMicroserviceApplication {
     @When("I input the actor data into the database")
     public void i_input_the_data_into_the_database() {
 
-    Actor actortest = new Actor(firstname, lastname);
-    Mockito.when(actorRepository.save(actortest)).thenThrow(IllegalStateException.class);
-    actual = myFirstMicroserviceApplication.addActor(firstname, lastname);
+    Actor actortest = new Actor(firstname, lastname);                                                   // Assigning the new Actor object the attributes firstname, lastname
+    Mockito.when(actorRepository.save(actortest)).thenThrow(IllegalStateException.class);               // saving the actortest object into the mock repository
+    actual = myFirstMicroserviceApplication.addActor(firstname, lastname);                              // Declaring actual string as the new actortest object
 
     }
 
     String expected = "New Actor Saved";
     @Then("I get the success actor return string")
-    public void i_get_the_success_actor_return_string() {
+    public void i_get_the_success_actor_return_string() {                                               // Checking the actual result and the expected result are the same
 
 
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);

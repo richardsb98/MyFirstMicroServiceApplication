@@ -12,25 +12,6 @@ Feature: Adding a new Actor
 #    When i try to add them into the database
 #    Then I get an error message
 
-#Feature: Getting a film based on actor preference
-#  Scenario: I successfully retrieve a film
-#  Given I have the actor's ID
-#  When I input the actor ID into the 'find by actor ID' search bar
-#  Then I get returned the films
-#
-#
-#
-#
-#
-#
-#
-#
-#Feature: Retrieve a film recommendation based on my preferences like category, rating, actor first name and last name, length, language, release year
-#  As a movie consumer, I want to find the best movie for me.
-#  Scenario: The user successfully gets a recommended film
-#    Given I have the required inputs like category, rating, actor first name and last name, length, language, release year
-#    When I input the required info
-#    Then I get a movie recommendation, based on my preferences
 
 
 

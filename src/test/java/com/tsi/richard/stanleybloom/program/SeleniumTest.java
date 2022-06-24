@@ -17,11 +17,8 @@ public class SeleniumTest {
 
     WebDriver driver =new SafariDriver();
 
-
-
     @BeforeEach
     void setUp() {
-
     }
 
     @Test
@@ -44,8 +41,6 @@ public class SeleniumTest {
         System.out.println(newactortile.getText().lines().toArray()[0]);
         Assertions.assertEquals("Id: 1 First Name:PENELOPELast Name: GUINESS", newactortile.getText());
 
-
-
     }
 
     @Test
@@ -57,7 +52,7 @@ public class SeleniumTest {
 
         driver.findElement(By.id("addmovie")).click();
 
-        WebElement newMovie = driver.findElement(By.id("todolist"));
+        WebElement newMovie = driver.findElement(By.id("towatchlist"));
         System.out.println(newMovie.getText().lines().toArray()[0]);
         Assertions.assertEquals("Planet Of the Apes", newMovie.getText());
     }
@@ -72,12 +67,12 @@ public class SeleniumTest {
 
         driver.findElement(By.id("addmovie")).click();
 
-        driver.findElement(By.id("todolist")).click();
+        driver.findElement(By.id("towatchlist")).click();
 
         driver.findElement(By.id("removewatched")).click();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("todolist")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("towatchlist")));
 
         Assertions.assertEquals(true, input.isDisplayed());
 
